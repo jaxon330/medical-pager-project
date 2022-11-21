@@ -1,0 +1,2 @@
+day 1:
+installed dependencies: stream-chat stream-chat-react universal-cookies
