@@ -11,7 +11,7 @@ const app_id = process.env.STREAM_API_ID;
 
 const signup = async (req, res) => {
     try {
-        const { fullname, username, password, phoneNumber } = req.body;
+        const { fullName, username, password, phoneNumber } = req.body;
 
         const userID = crypto.randomBytes(16).toString('hex');
 
@@ -21,7 +21,7 @@ const signup = async (req, res) => {
 
         const token = serverClient.createUserToken(userID);
 
-        res.status(200).json({ token, fullname, username, userID, hashedPassword, phoneNumber})
+        res.status(200).json({ token, fullName, username, userID, hashedPassword, phoneNumber})
 
     } catch (error) {
         console.log(error);
@@ -46,7 +46,7 @@ const login = async (req, res) => {
         const token = serverClient.createUserToken(users[0].id);
 
         if(success) {
-            res.status(200).json({ token, fullname: users[0].fullname, username, userID: users[0].id});
+            res.status(200).json({ token, fullName: users[0].fullName, username, userID: users[0].id});
         } else {
             res.status(500).json({ message: 'Incorrect password'});
         }

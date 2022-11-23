@@ -13,7 +13,7 @@ const initialState = {
     password: '',
     confirmPassword: '',
     phoneNumber: '',
-    avatartURL: ''
+    avatarURL: ''
 }
 
 const Auth = () => {
@@ -27,13 +27,13 @@ const Auth = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        const { fullName, username, password, phoneNumber, avatartURL } = form;
+        const { username, password, phoneNumber, avatarURL } = form;
 
         const URL = 'http://localhost:5000/auth';
 
-        const { data: { token, userID, hashedPassword } } = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
-            username, password, fullName, phoneNumber, avatartURL
-        })
+        const { data: { token, userID, hashedPassword, fullName } } = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
+            username, password, fullName: form.fullName, phoneNumber, avatarURL
+        });
 
         cookies.set('token', token);
         cookies.set('username', username);
@@ -42,7 +42,7 @@ const Auth = () => {
 
         if(isSignup) {
             cookies.set('phoneNumber', phoneNumber);
-            cookies.set('avatartURL', avatartURL);
+            cookies.set('avatarURL', avatarURL);
             cookies.set('hashedPassword', hashedPassword);
         }
 
